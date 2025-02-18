@@ -6,6 +6,7 @@ export default defineConfig({
   server: {
     host: true, // Ensures it binds to the correct interface
     port: 3001, // Render requires a defined port
-    strictPort: true // Ensures it doesn't switch to a different port
+    strictPort: true,
+    allowedHosts: ["illfindu.onrender.com"], // ✅ Allows Render host // Ensures it doesn't switch to a different port
   }
 });

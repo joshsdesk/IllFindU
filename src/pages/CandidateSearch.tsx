@@ -5,42 +5,45 @@ import "../styles/App.css";
 const CandidateSearch: React.FC = () => {
   const [candidate, setCandidate] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [previousUsername, setPreviousUsername] = useState<string | null>(null);
 
   const fetchCandidate = async () => {
     setLoading(true);
     try {
-      const response = await fetch("https://api.github.com/users?per_page=1", {
-        headers: {
-          Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
-        },
-      });
+      let newCandidate = null;
+      let attempts = 0;
 
-      const data = await response.json();
-      if (data.length > 0) {
-        const user = data[0];
-
-        const userDetails = await fetch(user.url, {
+      while (!newCandidate || newCandidate.username === previousUsername) {
+        const randomUserId = Math.floor(Math.random() * 10000000); // Get a random GitHub user ID
+        const response = await fetch(`https://api.github.com/user/${randomUserId}`, {
           headers: {
             Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
           },
         });
 
-        const details = await userDetails.json();
+        if (response.ok) {
+          const details = await response.json();
+          newCandidate = {
+            avatar: details.avatar_url,
+            name: details.name || "No Name",
+            username: details.login,
+            location: details.location || "Unknown",
+            email: details.email || "N/A",
+            company: details.company || "N/A",
+            profileUrl: details.html_url,
+          };
+        }
 
-        setCandidate({
-          avatar: details.avatar_url,
-          name: details.name || "No Name",
-          username: details.login,
-          location: details.location || "Unknown",
-          email: details.email || "N/A",
-          company: details.company || "N/A",
-          profileUrl: details.html_url,
-        });
-      } else {
-        setCandidate(null);
+        // Prevent infinite loop if GitHub keeps returning invalid users
+        attempts++;
+        if (attempts > 5) break;
       }
+
+      setPreviousUsername(newCandidate?.username || null);
+      setCandidate(newCandidate);
     } catch (error) {
       console.error("Error fetching candidate:", error);
+      setCandidate(null);
     } finally {
       setLoading(false);
     }
@@ -64,7 +67,7 @@ const CandidateSearch: React.FC = () => {
             localStorage.setItem("savedCandidates", JSON.stringify(savedCandidates));
             fetchCandidate();
           }}
-          onReject={fetchCandidate}
+          onReject={fetchCandidate} // Reject now ensures a new user
         />
       ) : (
         <p>No more candidates available.</p>

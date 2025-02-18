@@ -27,12 +27,14 @@ const SavedCandidates: React.FC = () => {
             <p><strong>Location:</strong> {candidate.location}</p>
             <p><strong>Email:</strong> {candidate.email || "N/A"}</p>
             <p><strong>Company:</strong> {candidate.company || "N/A"}</p>
-            <a href={candidate.profileUrl} target="_blank" rel="noopener noreferrer">
+            <a href={candidate.profileUrl} target="_blank" rel="noopener noreferrer" className="profile-link">
               View Profile
             </a>
-            <button className="remove-btn" onClick={() => removeCandidate(candidate.username)}>
-              Remove
-            </button>
+            <div className="button-container">
+              <button className="remove-btn" onClick={() => removeCandidate(candidate.username)}>
+                Remove
+              </button>
+            </div>
           </div>
         ))
       ) : (

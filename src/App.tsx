@@ -1,14 +1,18 @@
-import { Outlet } from 'react-router-dom';
-import Nav from './components/Nav';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import CandidateSearch from "./pages/CandidateSearch";
+import SavedCandidates from "./pages/SavedCandidates";
+import "./styles/App.css";
 
 function App() {
   return (
-    <>
-      <Nav />
-      <main>
-        <Outlet />
-      </main>
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<CandidateSearch />} />
+        <Route path="/saved" element={<SavedCandidates />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -1,0 +1,74 @@
+#root {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.5em;
+  font-weight: bold;
+  color: white;
+}
+
+button {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #535bf2;
+}
+
+.candidate-card {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.candidate-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.accept-btn,
+.reject-btn {
+  font-size: 1.5rem;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.accept-btn {
+  background-color: green;
+  color: white;
+}
+
+.reject-btn {
+  background-color: red;
+  color: white;
+}

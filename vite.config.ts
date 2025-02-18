@@ -1,14 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   envDir: './env',
-  plugins: [react()],
+  plugins: mode === 'production' ? [react()] : [react()],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(mode), // ✅ Set the correct mode
+  },
   server: {
-    host: true, // Ensures it binds to the correct interface
-    port: 3001, // Render requires a defined port
+    host: true,
+    port: 3001,
     strictPort: true,
-    allowedHosts: ["illfindu.onrender.com"], // ✅ Allows Render host // Ensures it doesn't switch to a different port
-  }
-});
+    allowedHosts: ["illfindu.onrender.com"],
+  },
+}));

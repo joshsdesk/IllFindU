@@ -7,12 +7,12 @@ import "./styles/App.css";
 
 function App() {
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}> {/* ✅ Enable future flags */}
       <Navbar />
       <Routes>
         <Route path="/" element={<CandidateSearch />} />
         <Route path="/saved" element={<SavedCandidates />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} /> {/* ✅ Wildcard 404 route */}
       </Routes>
     </Router>
   );

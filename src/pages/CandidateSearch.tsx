@@ -5,42 +5,45 @@ import "../styles/App.css";
 const CandidateSearch: React.FC = () => {
   const [candidate, setCandidate] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [previousUsername, setPreviousUsername] = useState<string | null>(null);
 
   const fetchCandidate = async () => {
     setLoading(true);
     try {
-      let newCandidate = null;
-      let attempts = 0;
+      // Get a random page of users (GitHub allows up to 100 per page)
+      const randomPage = Math.floor(Math.random() * 50) + 1; // Random page from 1 to 50
+      const response = await fetch(`https://api.github.com/users?per_page=10&page=${randomPage}`, {
+        headers: {
+          Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+        },
+      });
 
-      while (!newCandidate || newCandidate.username === previousUsername) {
-        const randomUserId = Math.floor(Math.random() * 10000000); // Get a random GitHub user ID
-        const response = await fetch(`https://api.github.com/user/${randomUserId}`, {
+      const data = await response.json();
+
+      if (data.length > 0) {
+        // Pick a random user from the list
+        const randomUser = data[Math.floor(Math.random() * data.length)];
+
+        // Fetch that user's details
+        const userDetails = await fetch(randomUser.url, {
           headers: {
             Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
           },
         });
 
-        if (response.ok) {
-          const details = await response.json();
-          newCandidate = {
-            avatar: details.avatar_url,
-            name: details.name || "No Name",
-            username: details.login,
-            location: details.location || "Unknown",
-            email: details.email || "N/A",
-            company: details.company || "N/A",
-            profileUrl: details.html_url,
-          };
-        }
+        const details = await userDetails.json();
 
-        // Prevent infinite loop if GitHub keeps returning invalid users
-        attempts++;
-        if (attempts > 5) break;
+        setCandidate({
+          avatar: details.avatar_url,
+          name: details.name || "No Name",
+          username: details.login,
+          location: details.location || "Unknown",
+          email: details.email || "N/A",
+          company: details.company || "N/A",
+          profileUrl: details.html_url,
+        });
+      } else {
+        setCandidate(null);
       }
-
-      setPreviousUsername(newCandidate?.username || null);
-      setCandidate(newCandidate);
     } catch (error) {
       console.error("Error fetching candidate:", error);
       setCandidate(null);

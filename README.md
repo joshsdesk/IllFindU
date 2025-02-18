@@ -1,50 +1,121 @@
-# React + TypeScript + Vite
+# 🏆 Candidate Search App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **React + TypeScript** application that allows users to search for potential candidates using the **GitHub API**, save profiles, and manage a list of saved candidates.
 
-Currently, two official plugins are available:
+## 🚀 Features
+- 🔍 **Fetch Random GitHub Users** – Browse randomly selected public GitHub profiles.
+- ✅ **Save Candidates** – Add candidates to a saved list for later review.
+- ❌ **Reject Candidates** – Skip candidates without saving them.
+- 🔄 **Next Profile Button** – Allows manual refresh to fetch another profile.
+- 📜 **Saved Candidates Page** – View and manage all accepted candidates.
+- 🗑 **Remove Candidates** – Delete saved candidates from the list.
+- 🌐 **404 Page** – Handles invalid routes with a friendly error message.
+- 🎨 **Dark Mode UI** – Styled with a professional dark theme.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🛠 How It Works
+### **🔎 Candidate Search Page**
+- **On load**, a random **GitHub user** is displayed.
+- Clicking **`+` (Accept Candidate)** → Saves the candidate and loads a new one.
+- Clicking **`-` (Reject Candidate)** → Skips the candidate and loads a new one.
+- Clicking **"Next Profile"** → Fetches another candidate without affecting saved candidates.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### **📂 Saved Candidates Page**
+- Displays a **list of accepted candidates**.
+- Clicking **"Remove"** deletes a candidate from the list.
+- The list is **stored in local storage**, so it remains after refreshing.
 
-- Configure the top-level `parserOptions` property like this:
+### **🚨 404 Page**
+- If the user visits an unknown route, they are redirected to a **friendly error page**.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 🖥️ Live Demo
+🔗 **[Deployed App on Render](#)**  
+_(Replace `#` with the actual deployed link after deployment.)_
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 📸 Screenshots
+
+|🎯 Candidate Search Page |____________________________________________________________|🎯 Saved Candidates Page |
+
+
+![Candidate Search Screenshot](./src/assets/images/Candidate%20Search.png) _____________ ![Saved Candidates Screenshot](./src/assets/images/Saved%20Candidate.png)
+
+
+---
+
+🛠 Installation & Setup
+
+To run the app locally:
+
+:one: Clone the Repository
+
+git clone https://github.com/your-username/candidate-search.git
+cd candidate-search
+
+2⃣ Install Dependencies
+
+npm install
+
+3⃣ Create a .env File
+
+Create a .env file in the project root and add:
+
+VITE_GITHUB_TOKEN=your_github_pat_here
+
+🚨 DO NOT share or commit this token! It is used to authenticate GitHub API requests.
+
+4⃣ Start the Development Server
+
+npm run dev
+
+The app will open at http://localhost:5173/.
+
+🛀 Deployment
+
+Deploy to Render
+
+Push your latest code to GitHub.
+
+Go to Render and create a new web service.
+
+Select your GitHub repository.
+
+Add the build command:
+
+npm install && npm run build
+
+Add VITE_GITHUB_TOKEN as an environment variable in Render.
+
+Click Deploy and wait for it to go live!
+
+📂 API Reference
+
+This app uses the GitHub REST API to fetch user data:
+
+GET https://api.github.com/users?per_page=10&page={random_page} → Gets a random set of public GitHub users.
+
+GET https://api.github.com/user/{id} → Fetches details for a specific GitHub user.
+
+📚 More info: GitHub API Docs
+
+💡 Future Enhancements
+
+🔎 Search for specific skills or keywords.
+
+📊 Filter saved candidates by company, location, or followers.
+
+📝 Sort saved candidates alphabetically.
+
+👽 User authentication (OAuth) to save profiles across devices.
+
+👥 Contributing
+
+Want to improve this project? Fork it, create a branch, and submit a Pull Request!
+
+📜 License
+
+This project is licensed under the MIT License.

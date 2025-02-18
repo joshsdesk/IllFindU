@@ -27,6 +27,15 @@ button:hover {
   background-color: #535bf2;
 }
 
+/* 📌 New Grid Layout for Saved Candidates */
+.saved-candidates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Creates flexible columns */
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
 .candidate-card {
   margin-top: 20px;
   padding: 20px;
@@ -36,8 +45,7 @@ button:hover {
   font-size: 1.1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
-  max-width: 400px;
-  margin: 20px auto;
+  max-width: 100%;
 }
 
 .candidate-avatar {

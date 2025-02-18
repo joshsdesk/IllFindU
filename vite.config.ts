@@ -5,15 +5,26 @@ export default defineConfig({
   envDir: './env',
   plugins: [react()],
   define: {
-    'process.env.NODE_ENV': JSON.stringify('production'), // ✅ Ensures React is in production mode
+    'process.env.NODE_ENV': JSON.stringify('production'), // ✅ Ensures React runs in production mode
   },
   build: {
-    minify: 'esbuild', // ✅ Enables proper minification
+    minify: 'esbuild', // ✅ Enables minification
     sourcemap: false,  // ✅ Disables sourcemaps for smaller builds
     rollupOptions: {
-      treeshake: true, // ✅ Enables tree-shaking for dead code elimination
-    },  
-  },   
+      output: {
+        manualChunks: undefined, // ✅ Prevents unnecessary chunking
+      },
+      treeshake: true, // ✅ Forces dead code elimination
+    },
+    commonjsOptions: {
+      transformMixedEsModules: true, // ✅ Ensures all modules are tree-shaken
+    },
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      treeShaking: true, // ✅ Ensures React gets optimized
+    },
+  },
   server: {
     host: true,
     port: 3001,

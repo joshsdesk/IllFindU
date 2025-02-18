@@ -9,13 +9,19 @@ const CandidateSearch: React.FC = () => {
   const fetchCandidate = async () => {
     setLoading(true);
     try {
+      // Get GitHub API token from environment
+      const token = import.meta.env.VITE_GITHUB_TOKEN;
+
       // Get a random page of users (GitHub allows up to 100 per page)
       const randomPage = Math.floor(Math.random() * 50) + 1; // Random page from 1 to 50
+      
       const response = await fetch(`https://api.github.com/users?per_page=10&page=${randomPage}`, {
-        headers: {
-          Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
-        },
+        headers: token ? { Authorization: `token ${token}` } : {},
       });
+
+      if (!response.ok) {
+        throw new Error(`GitHub API error: ${response.statusText}`);
+      }
 
       const data = await response.json();
 
@@ -25,10 +31,12 @@ const CandidateSearch: React.FC = () => {
 
         // Fetch that user's details
         const userDetails = await fetch(randomUser.url, {
-          headers: {
-            Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
-          },
+          headers: token ? { Authorization: `token ${token}` } : {},
         });
+
+        if (!userDetails.ok) {
+          throw new Error(`GitHub API error: ${userDetails.statusText}`);
+        }
 
         const details = await userDetails.json();
 

@@ -1,11 +1,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig({
   envDir: './env',
-  plugins: mode === 'production' ? [react()] : [react()],
+  plugins: [react()],
   define: {
-    'process.env.NODE_ENV': JSON.stringify(mode), // ✅ Set the correct mode
+    'process.env.NODE_ENV': JSON.stringify('production'), // ✅ Ensures React is in production mode
+  },
+  build: {
+    minify: 'esbuild', // ✅ Enables proper minification
+    sourcemap: false,  // ✅ Disables sourcemaps for smaller builds
   },
   server: {
     host: true,
@@ -13,4 +17,4 @@ export default defineConfig(({ mode }) => ({
     strictPort: true,
     allowedHosts: ["illfindu.onrender.com"],
   },
-}));
+});

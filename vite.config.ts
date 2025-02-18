@@ -10,7 +10,10 @@ export default defineConfig({
   build: {
     minify: 'esbuild', // ✅ Enables proper minification
     sourcemap: false,  // ✅ Disables sourcemaps for smaller builds
-  },
+    rollupOptions: {
+      treeshake: true, // ✅ Enables tree-shaking for dead code elimination
+    },  
+  },   
   server: {
     host: true,
     port: 3001,

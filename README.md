@@ -1,4 +1,4 @@
-# 🏆 Candidate Search App
+# 🏆 IllFINDU (Candidate Search App)
 
 A **React + TypeScript** application that allows users to search for potential candidates using the **GitHub API**, save profiles, and manage a list of saved candidates.
 
@@ -30,8 +30,12 @@ A **React + TypeScript** application that allows users to search for potential c
 ---
 
 ## 🖥️ Live Demo
-🔗 **[Deployed App on Render](#)**  
-_(Replace `#` with the actual deployed link after deployment.)_
+🔗 **[Deployed App on Render](https://illfindu.onrender.com)**  
+
+---
+
+## 📂 GitHub Repository
+🔗 **[GitHub Repository](https://github.com/joshsdesk/IllFindU)**
 
 ---
 
